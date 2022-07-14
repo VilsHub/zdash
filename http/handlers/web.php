@@ -2,13 +2,15 @@
 use vilshub\http\Request;
 
 //Import Content routes
-$contentRoutes = require_once($application["config"][$configInUse]["content"]);
+$contentRoutes = require_once($systemApp->routeFiles->content);
 
 //Set blocks
 if(Route::block($root, Request::$uri)){
-    $block      = $application["config"][$configInUse]["display"]."/layout/block/zdash.php";
-    $baseDir    = $application["config"][$configInUse]["display"]."/contents";
+    
+    $block      = $systemAppsHandler->getDisplayBlock($systemApp->id, "dashboard", "zdash.php");
+    $baseDir    = $systemAppsHandler->getLoadBase($systemApp->id, "dashboard");
     $app->router->listen($block, $baseDir, $contentRoutes);
+
 }
 
 //Error handler
